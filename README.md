@@ -21,6 +21,8 @@ Spanix98
 Alessandro Menghini 
 xLizhh
 Francesco Di Flumeri
+Damiano Duranti
+damianoduranti
 </div>
 </body>
 </html>
