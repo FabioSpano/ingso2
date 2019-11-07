@@ -15,6 +15,8 @@ Software per il progetto di  [ **`ingegneria del software 2 `** ]
 
 ---
 
+Nome del gruppo: Send Nodes
+
 Sviluppatori:
 Fabio Spanò 
 Spanix98
