@@ -3,8 +3,6 @@ const express = require('express');
 const usersRoutes = express.Router();
 const bodyParser = require('body-parser');
 
-usersRoutes.use('../', express.static('public'));
-
 usersRoutes.use(bodyParser.urlencoded({ extended: true }));
 
 const User = require('../models/users');
