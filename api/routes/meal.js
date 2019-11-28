@@ -26,6 +26,7 @@ mealRoutes.route('/view')
   		meal.first = req.body.first;
   		meal.second = req.body.second;
       meal.dessert = req.body.dessert;
+			meal.date = req.body.date;
   		saved = await meal.save();
   		if(saved != null){
   			res.status(201);
@@ -37,5 +38,18 @@ mealRoutes.route('/view')
 				console.log('* MESSAGE: Meal not created!');
   		}
 });
+
+mealRoutes.route('/delete')
+	.delete(function (req, res) {
+		if(Meal.delete()){
+			res.status(200);
+			res.json({message: 'All meals are cancelled'});
+			console.log('* MESSAGE: All meals are cancelled!');
+		}else{
+			res.status(404);
+			res.json({message: 'ERROR 404: All meals are already cancelled'});
+			console.log('* MESSAGE: All meals are already cancelled!');
+		}
+	});
 
 module.exports = mealRoutes;

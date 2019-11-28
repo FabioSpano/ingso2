@@ -71,6 +71,7 @@ class Meal {
                 mealTable[i].first = first;
                 mealTable[i].second = second;
                 mealTable[i].dessert = dessert;
+                mealTable[i].date = date;
             }
         }
     }
