@@ -11,10 +11,12 @@ mealRoutes.route('/view')
 		let meals = await Meal.find({})
 		if(meals != null){
 			res.status(200);
-			res.json([meals, {message: 'List of meals found!'}]);
+			res.json([meals]);
+			console.log('* MESSAGE: List of meals found!');
 		}else{
 			res.status(404);
 			res.json({message: 'No meals found!'});
+			console.log('* MESSAGE: No meals found!');
 		}
 	});
 
@@ -27,10 +29,12 @@ mealRoutes.route('/view')
   		saved = await meal.save();
   		if(saved != null){
   			res.status(201);
-  			res.json([saved , {message: 'User correctly created'}]);
+  			res.json([{message: 'Meal correctly created'}]);
+				console.log('* MESSAGE: Meal correctly created!');
   		}else{
   			res.status(404);
-  			res.json({message: 'ERROR 404: User not created!'});
+  			res.json({message: 'ERROR 404: Meal not created!'});
+				console.log('* MESSAGE: Meal not created!');
   		}
 });
 
