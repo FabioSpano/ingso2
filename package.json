@@ -4,7 +4,8 @@
   "description": "Software to book a seat to having the meal",
   "main": "index.js",
   "scripts": {
-    "test": "start"
+    "test": "start",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",

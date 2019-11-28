@@ -39,6 +39,20 @@ mealRoutes.route('/view')
   		}
 });
 
+mealRoutes.route('/:meal_id')
+	.get(function(req,res){
+		let meal_id = Meal.findMyMeal(req.params.meal_id);
+		if(meal_id != null){
+			res.status(200);
+			res.json({meal_id, message: 'Meal correctly found!'});
+			console.log('* MESSAGE: Meal correctly found!');
+		}else{
+			res.status(404);
+			res.json({message: 'Meal not found'});
+			console.log('* MESSAGE: Meal not found!');
+		}
+	});
+
 mealRoutes.route('/delete')
 	.delete(function (req, res) {
 		if(Meal.delete()){

@@ -53,10 +53,10 @@ class Meal {
         }
     }
 
-    static findMyMeal (mealid){
+    static findMyMeal (date){
         let matchingMeals;
         for(var i=0; i<mealTable.length; i++){
-            if(mealTable[i] != null && mealTable[i].mealid == mealid) {
+            if(mealTable[i] != null && mealTable[i].date == date) {
                 matchingMeals = mealTable[i];
                 return matchingMeals;
             }
