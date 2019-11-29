@@ -24,8 +24,10 @@ seatsRoutes.route('/insert')
         var saved=[];
         for(let i=0 ; i<numberOfSeat; i++) {
             var seat = new Seat();
+            seat.booked = false;
             let s=await seat.save();
             saved.push(s);
+
         }
         if(saved.length > 0){
             res.status(201);

@@ -69,10 +69,20 @@ class Seats {
 
     static change(seatid, first, second, dessert) {
         for (var i = 0; i < seatTable.length; i++) {
-            if (seatTable[i] != null && seatTable[i].mat == seatid) {
+            if (seatTable[i] != null && seatTable[i].seatid == seatid) {
                 seatTable[i].seatid = seatid;
             }
         }
+    }
+
+    static book (seatid){
+        for (var i = 0; i < seatTable.length; i++) {
+            if (seatTable[i] != null && seatTable[i].seatid == seatid && seatTable[i].booked != true) {
+                seatTable[i].booked = true;
+                return true;
+            }
+        }
+        return false;
     }
 };
 
