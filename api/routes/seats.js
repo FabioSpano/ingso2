@@ -6,7 +6,7 @@ seatsRoutes.use(bodyParser.urlencoded({ extended: true }));
 
 const Seat = require('../models/seats');
 
-seatsRoutes.route('/view')
+seatsRoutes.route('/')
     .get(async function(req, res) {
         let seats = await Seat.find({})
         if(seats != null){
@@ -18,9 +18,9 @@ seatsRoutes.route('/view')
         }
     });
 
-seatsRoutes.route('/insert')
+seatsRoutes.route('/:nseat')
     .post(async function(req,res){
-        var numberOfSeat = req.body.seat;
+        var numberOfSeat = req.params.nseat;
         var saved=[];
         for(let i=0 ; i<numberOfSeat; i++) {
             var seat = new Seat();

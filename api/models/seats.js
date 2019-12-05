@@ -67,13 +67,24 @@ class Seats {
         return null;
     }
 
-    static change(seatid, first, second, dessert) {
+    static change(seatid) {
         for (var i = 0; i < seatTable.length; i++) {
             if (seatTable[i] != null && seatTable[i].seatid == seatid) {
                 seatTable[i].seatid = seatid;
             }
         }
     }
+
+    static unbook (seatid) {
+        for (var i = 0; i < seatTable.length; i++) {
+            if (seatTable[i] != null && seatTable[i].seatid == seatid && seatTable[i].booked == true) {
+                seatTable[i].booked = false;
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     static book (seatid){
         for (var i = 0; i < seatTable.length; i++) {

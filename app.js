@@ -9,7 +9,7 @@ const bookRoutes = require('./api/routes/book');
 app.use('/users', userRoutes);
 app.use('/meals', mealRoutes);
 app.use('/seats', seatsRoutes);
-app.use('/book', bookRoutes);
+app.use('/books', bookRoutes);
 
 app.use('/', express.static('public'));
 

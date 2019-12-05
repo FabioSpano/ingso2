@@ -85,13 +85,15 @@ class Book {
     }
 
     static change(BookID, seatid) {
+        var before = -1;
         for (var i = 0; i < bookTable.length; i++) {
-            if (bookTable[i] != null && bookTable[i].BookID == BookID) {
+            if (bookTable[i] != null && bookTable[i].id == BookID) {
+                before = bookTable[i].seatid;
                 bookTable[i].seatid = seatid;
-                return true;
+                return before;
             }
         }
-        return false;
+        return before;
     }
 };
 

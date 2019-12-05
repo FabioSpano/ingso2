@@ -7,7 +7,7 @@ usersRoutes.use(bodyParser.urlencoded({ extended: true }));
 
 const User = require('../models/users');
 
-usersRoutes.route('/view')
+usersRoutes.route('/')
 	.get(async function(req, res) {
 		let users = await User.find({})
 		if(users != null){
@@ -17,11 +17,11 @@ usersRoutes.route('/view')
 			res.status(404);
 			res.json({message: 'No users found!'});
 		}
-	})
-usersRoutes.route('/insert')
+	});
+usersRoutes.route('/:email')
 	.post(async function(req,res){
 		var user = new User();
-		user.email = req.body.email;
+		user.email = req.params.email;
 
 		saved = await user.save();
 		if(saved != null){
@@ -31,8 +31,8 @@ usersRoutes.route('/insert')
 			res.status(404);
 			res.json({message: 'ERROR 404: User not created!'});
 		}
-	})
-usersRoutes.route('/delete')
+	});
+usersRoutes.route('/')
 	.delete(function (req, res) {
 		if(User.delete()){
 			res.status(200);
@@ -41,14 +41,14 @@ usersRoutes.route('/delete')
 			res.status(404);
 			res.json({message: 'ERROR 404: All users are already cancelled'});
 		}
-	})
+	});
 
 usersRoutes.route('/:user_mat')
 	.get(function(req,res){
 		let users_m = User.findByMatricola(req.params.user_mat);
 		if(users_m != null){
 			res.status(200);
-			res.json({message: 'User correctly found!'})
+			res.json([user_m, {message: 'User correctly found!'}])
 		}else{
 			res.status(404);
 			res.json({message: 'User not found'});
@@ -62,18 +62,19 @@ usersRoutes.route('/:user_mat')
 			res.status(404);
 			res.json({message: 'Invalid matricola'});
 		}
-	})
+	});
+usersRoutes.route('/:user_mat/:email')
 	.put(async function(req,res){
 		let matchingUser = User.findByMatricola(req.params.user_mat);
 		if(matchingUser != null){
 			User.change(req.params.user_mat,
-				req.body.email || matchingUser.email)
+				req.params.email || matchingUser.email)
 			res.status(200);
 			res.json({message: 'User correctly modified!'})
 		}else{
 			res.status(404);
 			res.json({message: 'Error! User not found!'});
 		}
-	})
+	});
 
 module.exports = usersRoutes;

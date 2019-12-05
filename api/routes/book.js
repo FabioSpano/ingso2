@@ -28,14 +28,14 @@ bookRoutes.route('/:user_mat/:seatid')
             }
             else{
                 res.status(404);
-                res.json({message: 'ERROR 404: Seats does not exist or it is already booked!'});
+                res.json({message: 'ERROR 400: Seats does not exist or it is already booked!'});
             }
         }else{
             res.status(404);
-			res.json({message: 'User not found'});
+			res.json({message: 'ERROR 404: User not found'});
         }
     });
-bookRoutes.route('/view')
+bookRoutes.route('/')
     .get(async function(req, res) {
         let books = await Book.find({})
         if(books != null){
@@ -45,7 +45,7 @@ bookRoutes.route('/view')
             res.status(404);
             res.json({message: 'No books found!'});
         }
-    })
+    });
 bookRoutes.route('/:user_mat')
     .get(async function(req, res) {
         var usermat = req.params.user_mat;
@@ -57,14 +57,16 @@ bookRoutes.route('/:user_mat')
             res.status(404);
             res.json({message: 'No books found or user incorrect!'});
         }
-    })
+    });
 bookRoutes.route('/:bookID/:seatid')
     .put(async function(req, res) {
         var bookid = req.params.bookID;
-        var seatid = requ.params.seatid;
+        var seatid = req.params.seatid;
         var success = false;
         if(Book.findByID(bookid)){
-            if(Seat.book(seatid))   success = Book.change(bookid);
+            var seatBefore = -1;
+            if(Seat.book(seatid))   seatBefore = Book.change(bookid, seatid);
+            if(seatBefore != -1)  success = Seat.unbook(seatBefore);
         }
         if(success){
             res.status(200);
@@ -73,6 +75,6 @@ bookRoutes.route('/:bookID/:seatid')
             res.status(404);
             res.json({message: 'Book not changed!'});
         }
-    })
+    });
 
 module.exports = bookRoutes;
