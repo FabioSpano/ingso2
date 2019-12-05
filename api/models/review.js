@@ -1,6 +1,5 @@
 var uniqid = require('uniqid');
 
-
 var reviewTable = global.reviewTable
 if (reviewTable == null)
     reviewTable = [];
