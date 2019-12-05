@@ -13,7 +13,6 @@ app.use('/seats', seatsRoutes);
 app.use('/book', bookRoutes);
 app.use('/review', reviewRoutes);
 
-
 app.use('/', express.static('public'));
 
 

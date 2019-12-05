@@ -6,7 +6,7 @@ mealRoutes.use(bodyParser.urlencoded({ extended: true }));
 
 const Meal = require('../models/meal');
 
-mealRoutes.route('/view')
+mealRoutes.route('/')
 	.get(async function(req, res) {
 		let meals = await Meal.find({})
 		if(meals != null){
@@ -20,13 +20,13 @@ mealRoutes.route('/view')
 		}
 	});
 
-  mealRoutes.route('/insert')
+  mealRoutes.route('/:first/:second/:dessert/:date')
   	.post(async function(req,res){
   		var meal = new Meal();
-  		meal.first = req.body.first;
-  		meal.second = req.body.second;
-      meal.dessert = req.body.dessert;
-			meal.date = req.body.date;
+  		meal.first = req.params.first;
+  		meal.second = req.params.second;
+        meal.dessert = req.params.dessert;
+		meal.date = req.params.date;
   		saved = await meal.save();
   		if(saved != null){
   			res.status(201);
@@ -53,7 +53,7 @@ mealRoutes.route('/:meal_id')
 		}
 	});
 
-mealRoutes.route('/delete')
+mealRoutes.route('/')
 	.delete(function (req, res) {
 		if(Meal.delete()){
 			res.status(200);
