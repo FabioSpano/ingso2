@@ -9,11 +9,11 @@ class Book {
     async save() {
         let matchingBookID = -1;
 
-        if(this.mat == undefined){
-            this.mat = uniqid();
+        if(this.id == undefined){
+            this.id = uniqid();
         }
         else{
-            matchingBookID = bookTable.findIndex(e => e.mat === this.mat)
+            matchingBookID = bookTable.findIndex(e => e.id === this.id)
         }
 
         if (matchingBookID == -1){
@@ -32,9 +32,9 @@ class Book {
     static remove(BookID){
         let matchingBookings = this.findByID(BookID);
 
-        if(matchingID != null){
+        if(matchingBookings != null){
             for (var i=0; i<bookTable.length; i++){
-                if(bookTable[i].mat == mat){
+                if(bookTable[i] == matchingBookings){
                     bookTable[i] = null;
                 }
             }
@@ -43,6 +43,15 @@ class Book {
         }else{
             return false;
         }
+    }
+
+    static findByID(id){
+        for (var i=0; i<bookTable.length; i++){
+            if(bookTable[i].id == id){
+                return bookTable[i];
+            }
+        }
+        return null;
     }
 
     static async find (criterias){
@@ -54,7 +63,6 @@ class Book {
     }
 
     static findBySeat (seatid){
-        let matchingID;
         var TodaysDate = new Date();
         for(var i=0; i<bookTable.length; i++){
             if(bookTable[i] != null && bookTable[i].seatid == seatid) {
@@ -66,13 +74,24 @@ class Book {
         return true;
     }
 
-    static change(BookID,date) {
-        for (var i = 0; i < bookTable.length; i++) {
-            if (bookTable[i] != null && bookTable[i].BookID == BookID) {
-                bookTable[i].BookID = BookID;
-                bookTable[i].Date = date;
+    static findByUser (usermat){
+        var bookfound = [];
+        for(var i=0; i<bookTable.length; i++){
+            if(bookTable[i] != null && bookTable[i].user == usermat){
+                bookfound.push(bookTable[i]);
             }
         }
+        return bookfound;
+    }
+
+    static change(BookID, seatid) {
+        for (var i = 0; i < bookTable.length; i++) {
+            if (bookTable[i] != null && bookTable[i].BookID == BookID) {
+                bookTable[i].seatid = seatid;
+                return true;
+            }
+        }
+        return false;
     }
 };
 
