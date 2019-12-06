@@ -29,8 +29,10 @@ reviewRoutes.route('/')
     .post(async function(req,res){
         try{
             var review = new Review();
+            var saved = null;
             review.review = req.query.review;
-            saved = await review.save();
+            if (review.review != null)
+                saved = await review.save();            
             if(saved != null){
                 res.status(201);
                 res.json([{message: 'Review correctly created'}]);
