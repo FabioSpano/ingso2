@@ -36,13 +36,15 @@ bot.hears('/meals', message => {
         // stream of data.
         resp.on('end', () => {
             let JSONData = JSON.parse(data);
-            let queryData = JSONData[0][0];
-            /*let valueSearched = queryData.query.search;
-            for(let i=0;i<5;i++){
-                console.log(valueSearched[i].title);
-            }*/
-            message.reply("Pasto del " + queryData["date"] + ":\n Primo: " + queryData["first"] + "\n Secondo: " + queryData["second"] + "\n Dessert: " + queryData["dessert"]);
-            //}
+            console.log(JSONData);
+            if(JSONData[0] == undefined){
+                message.reply("Pasto non presente per la data di oggi");
+            }else{
+                let queryData = JSONData[0][0];
+            
+                message.reply("Pasto del " + queryData["date"] + ":\n Primo: " + queryData["first"] + "\n Secondo: " + queryData["second"] + "\n Dessert: " + queryData["dessert"]);
+            }
+                
         }); // We receive the content as "text" and print it
     })
     .on('error', err => console.log('Error: ' + err.message));
@@ -66,10 +68,7 @@ bot.hears('/seats', message => {
         resp.on('end', () => {
             let JSONData = JSON.parse(data);
             let queryData = JSONData[0];
-            /*let valueSearched = queryData.query.search;
-            for(let i=0;i<5;i++){
-                console.log(valueSearched[i].title);
-            }*/
+            
             var stringData = 'Lista dei posti:\n';
             if(queryData != undefined){
                 for(q of queryData){
@@ -79,7 +78,7 @@ bot.hears('/seats', message => {
                 stringData += 'Mensa in costruzione...'
             }
             message.reply(stringData);
-            //}
+            
         }); // We receive the content as "text" and print it
     })
     .on('error', err => console.log('Error: ' + err.message));
