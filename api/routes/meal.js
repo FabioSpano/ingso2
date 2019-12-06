@@ -48,10 +48,11 @@ mealRoutes.route('/')
 		}
 });
 
-mealRoutes.route('/')
+mealRoutes.route('/:date')
 	.get(function(req,res){
 		try{
-			let meal = Meal.findByDate(req.query.meal_date);
+			var meal_date = req.params.date;
+			let meal = Meal.findByDate(meal_date);
 			if(meal != null){
 				res.status(200);
 				res.json({meal, message: 'Meal correctly found!'});

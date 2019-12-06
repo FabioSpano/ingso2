@@ -17,7 +17,7 @@ bot.hears('/help', message => {
 bot.hears('/meals', message => {
     var date = new Date();
 
-    var stringDate = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+    var stringDate = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear();
 
 
     var url = "https://bookmealunitn.herokuapp.com/meals?meal_date=" + stringDate;

@@ -2,7 +2,7 @@
 class UtilDate {
     static isValidDate(dateString)
     {
-        var vectorDate = dateString.split('/');
+        var vectorDate = dateString.split('-');
 
         var day = parseInt(vectorDate[0], 10);
         var month = parseInt(vectorDate[1], 10);
