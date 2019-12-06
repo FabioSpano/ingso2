@@ -12,7 +12,7 @@ reviewRoutes.route('/')
             let reviews = await Review.find({})
             if(reviews != null){
                 res.status(200);
-                res.json([reviews], {message: 'Reviews found!'});
+                res.json([reviews, {message: 'Reviews found!'}]);
             }else{
                 res.status(404);
                 res.json({message: 'ERROR 404: No reviews found!'});
