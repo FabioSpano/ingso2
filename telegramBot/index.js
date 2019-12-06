@@ -22,7 +22,6 @@ bot.hears('/meals', message => {
     var year = date.getFullYear();
     var stringDate =  day + "-" + month + "-" + year;
 
-    console.log(stringDate);
     var url = "https://bookmealunitn.herokuapp.com/meals/" + stringDate;
 
     https
