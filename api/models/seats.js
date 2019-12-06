@@ -29,10 +29,11 @@ class Seats {
 
     static delete() {
         seatTable = [];
+        numero = 0;
         return true;
     }
 
-    static remove(mat){
+    /*static remove(mat){
         let matchingseats = this.findMyseat(seatid);
 
         if(matchingseats != null){
@@ -46,7 +47,7 @@ class Seats {
         }else{
             return false;
         }
-    }
+    }*/
 
     static async find (criterias){
         if(seatTable.length != 0){
@@ -67,13 +68,13 @@ class Seats {
         return null;
     }
 
-    static change(seatid) {
+    /*static change(seatid) {
         for (var i = 0; i < seatTable.length; i++) {
             if (seatTable[i] != null && seatTable[i].seatid == seatid) {
                 seatTable[i].seatid = seatid;
             }
         }
-    }
+    }*/
 
     static unbook (seatid) {
         for (var i = 0; i < seatTable.length; i++) {
@@ -85,6 +86,12 @@ class Seats {
         return false;
     }
 
+    static unbookAll (){
+        for (var i = 0; i < seatTable.length; i++) {
+            seatTable[i].booked = false;
+        }
+        return true;
+    }
 
     static book (seatid){
         for (var i = 0; i < seatTable.length; i++) {

@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 mealRoutes.use(bodyParser.urlencoded({ extended: true }));
 
 const Meal = require('../models/meal');
-const UtilDate = require('../util/utilDate')
+const UtilDate = require('../util/utilDate');
 
 mealRoutes.route('/')
 	.get(async function(req, res) {
@@ -33,7 +33,8 @@ mealRoutes.route('/')
 			meal.second = req.query.second;
 			meal.dessert = req.query.dessert;
 			meal.date = req.query.date;
-			if(meal.first != null && meal.second != null && meal.dessert != null && UtilDate.isValidDate(meal.date) && meal.date != null)		saved = await meal.save();
+			if(meal.first != null && meal.second != null && meal.dessert != null && UtilDate.isValidDate(meal.date) && meal.date != null && Meal.findByDate(meal.date) == null)	
+				saved = await meal.save();
 			if(saved != null){
 				res.status(201);
 				res.json([{message: 'Meal correctly created'}]);
@@ -47,13 +48,13 @@ mealRoutes.route('/')
 		}
 });
 
-mealRoutes.route('/:meal_id')
+mealRoutes.route('/')
 	.get(function(req,res){
 		try{
-			let meal_id = Meal.findMyMeal(req.params.meal_id);
-			if(meal_id != null){
+			let meal = Meal.findByDate(req.query.meal_date);
+			if(meal != null){
 				res.status(200);
-				res.json({meal_id, message: 'Meal correctly found!'});
+				res.json({meal, message: 'Meal correctly found!'});
 			}else{
 				res.status(404);
 				res.json({message: 'ERROR 404: Meal not found'});

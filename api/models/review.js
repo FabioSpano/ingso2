@@ -12,7 +12,6 @@ class Review {
 
         if(this.reviewid == undefined){
             this.reviewid = uniqid();
-            this.date = new Date();
         }
         else{
             matchingReviewId = reviewTable.findIndex(e => e.reviewid === this.reviewid)
@@ -31,7 +30,7 @@ class Review {
         return true;
     }
 
-    static remove(mat){
+    /*static remove(reviewid){
         let matchingReviews = this.findMyReview(reviewid);
         if(matchingReviews != null){
             for (var i=0; i<reviewTable.length; i++){
@@ -43,7 +42,7 @@ class Review {
         }else{
             return false;
         }
-    }
+    }*/
 
     static async find (criterias){
         if(reviewTable.length != 0){
@@ -64,15 +63,14 @@ class Review {
         return null;
     }
 
-    static change(reviewid, review) {
+    /*static change(reviewid, review) {
         for (var i = 0; i < reviewTable.length; i++) {
             if (reviewTable[i] != null && reviewTable[i].mat == reviewid) {
-                reviewTable[i].reviewid = reviewid;
-                reviewTable[i].review = review;
+                reviewTable[i].reviewText = review;
                 reviewTable[i].date = new Date();
             }
         }
-    }
+    }*/
 };
 
 module.exports = Review;

@@ -10,8 +10,8 @@ const reviewRoutes = require('./api/routes/review');
 app.use('/users', userRoutes);
 app.use('/meals', mealRoutes);
 app.use('/seats', seatsRoutes);
-app.use('/book', bookRoutes);
-app.use('/review', reviewRoutes);
+app.use('/books', bookRoutes);
+app.use('/reviews', reviewRoutes);
 
 app.use('/', express.static('public'));
 

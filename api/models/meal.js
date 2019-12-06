@@ -29,12 +29,12 @@ class Meal {
         return true;
     }
 
-    static remove(mat){
-        let matchingMeals = this.findMyMeal(mealid);
+    /*static remove(mealDate){
+        let matchingMeals = this.findByDate(mealDate);
 
         if(matchingMeals != null){
             for (var i=0; i<mealTable.length; i++){
-                if(mealTable[i].mealid == mealid){
+                if(mealTable[i].date == mealDate){
                     mealTable[i] = null;
                 }
             }
@@ -43,7 +43,7 @@ class Meal {
         }else{
             return false;
         }
-    }
+    }*/
 
     static async find (criterias){
         if(mealTable.length != 0){
@@ -53,7 +53,7 @@ class Meal {
         }
     }
 
-    static findMyMeal (date){
+    static findByDate (date){
         let matchingMeals;
         for(var i=0; i<mealTable.length; i++){
             if(mealTable[i] != null && mealTable[i].date == date) {
@@ -64,7 +64,7 @@ class Meal {
         return null;
     }
 
-    static change(mealid, first, second, dessert) {
+    /*static change(mealid, first, second, dessert) {
         for (var i = 0; i < mealTable.length; i++) {
             if (mealTable[i] != null && mealTable[i].mat == mealid) {
                 mealTable[i].mealid = mealid;
@@ -74,7 +74,7 @@ class Meal {
                 mealTable[i].date = date;
             }
         }
-    }
+    }*/
 };
 
 module.exports = Meal;

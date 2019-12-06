@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 reviewRoutes.use(bodyParser.urlencoded({ extended: true }));
 
 const Review = require('../models/review');
+const Meal = require('../models/meal');
+
+const UtilDate = require('../util/utilDate');
 
 reviewRoutes.route('/')
     .get(async function(req, res) {
@@ -30,15 +33,17 @@ reviewRoutes.route('/')
         try{
             var review = new Review();
             var saved = null;
-            review.review = req.query.review;
-            if (review.review != null)
+            review.date = new Date();
+            review.reviewText = req.query.review;
+            review.mealDate = req.query.mealDate;
+            if (review.reviewText != null && Meal.findByDate(review.mealDate) != null && UtilDate.isBefore(review.mealDate))
                 saved = await review.save();            
             if(saved != null){
                 res.status(201);
                 res.json([{message: 'Review correctly created'}]);
             }else{
                 res.status(400);
-                res.json({message: 'ERROR 400: Review not created, probably no review written!'});
+                res.json({message: 'ERROR 400: Review not created, probably no review written or the meal date is incorrect!'});
             }
         }
         catch{

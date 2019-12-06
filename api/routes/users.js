@@ -91,10 +91,10 @@ usersRoutes.route('/:user_mat')
 			res.json({message: 'ERROR 500: Local server error!'});
 		}
 	});
-usersRoutes.route('/:user_mat')
+usersRoutes.route('/')
 	.put(async function(req,res){
 		try{
-			let matchingUser = User.findByMatricola(req.params.user_mat);
+			let matchingUser = User.findByMatricola(req.query.user_mat);
 			if(matchingUser != null && UtilEmail.validateEmail(req.query.email) && req.query.email != null){
 				User.change(req.params.user_mat,
 					req.query.email || matchingUser.email)

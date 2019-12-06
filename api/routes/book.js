@@ -43,10 +43,24 @@ bookRoutes.route('/:user_mat')
 bookRoutes.route('/')
     .get(async function(req, res) {
         try{
-            let books = await Book.find({})
+            let books = await Book.find({});
             if(books != null){
                 res.status(200);
                 res.json([books, {message: 'List of books found!'}]);
+            }else{
+                res.status(404);
+                res.json({message: 'ERROR 404: No books found!'});
+            }
+        }catch(error){
+			res.status(500);
+			res.json({message: 'ERROR 500: Local server error!'});
+		}
+    })
+    .delete(async function(req, res) {
+        try{
+            if(Book.delete() && Seat.unbookAll()){
+                res.status(200);
+                res.json({message: 'List of books deleted!'});
             }else{
                 res.status(404);
                 res.json({message: 'ERROR 404: No books found!'});
@@ -73,23 +87,24 @@ bookRoutes.route('/:user_mat')
 			res.json({message: 'ERROR 500: Local server error!'});
 		}
     });
-bookRoutes.route('/:bookID')
+bookRoutes.route('/:user_mat')
     .put(async function(req, res) {
         try{
-            var bookid = req.params.bookID;
+            var usermat = req.params.user_mat;
+            var bookid = req.query.bookid;
             var seatid = req.query.seatid;
             var success = false;
-            if(Book.findByID(bookid) && seatid != null){
+            if(Book.findByID(bookid) && seatid != null && User.findByMatricola(usermat)!=null){
                 var seatBefore = -1;
                 if(Seat.book(seatid))   seatBefore = Book.change(bookid, seatid);
                 if(seatBefore != -1)  success = Seat.unbook(seatBefore);
             }
             if(success){
-                res.status(200);
+                res.status(201);
                 res.json([{message: 'Book changed!'}]);
             }else{
-                res.status(404);
-                res.json({message: 'ERROR 404: Book not changed!'});
+                res.status(400);
+                res.json({message: 'ERROR 404: Book not changed because the user was incorrect or the booking does not exist!'});
             }
         }catch(error){
 			res.status(500);
