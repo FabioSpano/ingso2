@@ -39,7 +39,6 @@ class Review {
                     reviewTable[i] = null;
                 }
             }
-
             return true;
         }else{
             return false;
