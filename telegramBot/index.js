@@ -18,10 +18,9 @@ bot.hears('/meals', message => {
     var date = new Date();
 
     var stringDate = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
-    console.log(stringDate);
 
 
-    var url = "https://bookmealunitn.herokuapp.com/meals/" + stringDate;
+    var url = "https://bookmealunitn.herokuapp.com/meals?meal_date=" + stringDate;
 
     https
     .get(url, resp => {
@@ -72,8 +71,12 @@ bot.hears('/seats', message => {
                 console.log(valueSearched[i].title);
             }*/
             var stringData = 'Lista dei posti:\n';
-            for(q of queryData){
-                stringData += q["seatid"] + " is booked: " + q["booked"] + "\n";
+            if(queryData != undefined){
+                for(q of queryData){
+                    stringData += q["seatid"] + " is booked: " + q["booked"] + "\n";
+                }
+            }else{
+                stringData += 'Mensa in costruzione...'
             }
             message.reply(stringData);
             //}
