@@ -7,7 +7,7 @@ mealRoutes.use(bodyParser.urlencoded({ extended: true }));
 const Meal = require('../models/meal');
 const UtilDate = require('../util/utilDate');
 
-/*mealRoutes.route('/')
+mealRoutes.route('/')
 	.get(async function(req, res) {
 		try{
 			let meals = await Meal.find({})
@@ -22,7 +22,7 @@ const UtilDate = require('../util/utilDate');
 			res.status(500);
 			res.json({message: 'ERROR 500: Local server error!'});
 		}
-	});*/
+	});
 
   mealRoutes.route('/')
   	.post(async function(req,res){

@@ -36,7 +36,7 @@ bot.hears('/meals', message => {
         // stream of data.
         resp.on('end', () => {
             let JSONData = JSON.parse(data);
-            console.log(JSONData);
+            //console.log(JSONData);
             if(JSONData[0] == undefined){
                 message.reply("Pasto non presente per la data di oggi");
             }else{
