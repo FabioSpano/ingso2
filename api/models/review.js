@@ -33,7 +33,6 @@ class Review {
 
     static remove(mat){
         let matchingReviews = this.findMyReview(reviewid);
-
         if(matchingReviews != null){
             for (var i=0; i<reviewTable.length; i++){
                 if(reviewTable[i].reviewid == reviewid){
