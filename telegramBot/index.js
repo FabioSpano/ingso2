@@ -17,10 +17,13 @@ bot.hears('/help', message => {
 bot.hears('/meals', message => {
     var date = new Date();
 
-    var stringDate = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    var stringDate =  day + "-" + month + "-" + year;
 
-
-    var url = "https://bookmealunitn.herokuapp.com/meals?meal_date=" + stringDate;
+    console.log(stringDate);
+    var url = "https://bookmealunitn.herokuapp.com/meals/" + stringDate;
 
     https
     .get(url, resp => {
@@ -40,7 +43,7 @@ bot.hears('/meals', message => {
             if(JSONData[0] == undefined){
                 message.reply("Pasto non presente per la data di oggi");
             }else{
-                let queryData = JSONData[0][0];
+                let queryData = JSONData[0];
             
                 message.reply("Pasto del " + queryData["date"] + ":\n Primo: " + queryData["first"] + "\n Secondo: " + queryData["second"] + "\n Dessert: " + queryData["dessert"]);
             }

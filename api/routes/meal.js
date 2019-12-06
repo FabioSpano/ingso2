@@ -55,7 +55,7 @@ mealRoutes.route('/:date')
 			let meal = Meal.findByDate(meal_date);
 			if(meal != null){
 				res.status(200);
-				res.json({meal, message: 'Meal correctly found!'});
+				res.json([meal, {message: 'Meal correctly found!'}]);
 			}else{
 				res.status(404);
 				res.json({message: 'ERROR 404: Meal not found'});
