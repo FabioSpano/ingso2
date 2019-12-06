@@ -36,7 +36,7 @@ reviewRoutes.route('/')
                 res.json([{message: 'Review correctly created'}]);
             }else{
                 res.status(400);
-                res.json({message: 'ERROR 400: Review not created, probably no review written!});
+                res.json({message: 'ERROR 400: Review not created, probably no review written!'});
             }
         }
         catch{
