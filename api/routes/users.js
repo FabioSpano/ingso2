@@ -31,7 +31,8 @@ usersRoutes.route('/')
 			user.email = req.query.email;
 			var saved = null;
 
-			if(user.email != "" && UtilEmail.validateEmail(user.email))		saved = await user.save();
+			if(user.email != "" && UtilEmail.validateEmail(user.email))		
+				saved = await user.save();
 			if(saved != null){
 				res.status(201);
 				res.json([saved , {message: 'User correctly created'}]);
