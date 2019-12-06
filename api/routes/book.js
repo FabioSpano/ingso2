@@ -16,7 +16,7 @@ bookRoutes.route('/:user_mat')
                 var seatid = req.query.seatid;
                 var saved = null;
                 var book = new Book();
-                if (Book.findBySeat(seatid) && Seat.book(seatid)){
+                if (Book.findBySeat(seatid) && Seat.book(seatid) && seatid != null){
                     book.seatid = seatid;
                     book.date = new Date();
                     book.user = usermat;
@@ -79,7 +79,7 @@ bookRoutes.route('/:bookID')
             var bookid = req.params.bookID;
             var seatid = req.query.seatid;
             var success = false;
-            if(Book.findByID(bookid)){
+            if(Book.findByID(bookid) && seatid != null){
                 var seatBefore = -1;
                 if(Seat.book(seatid))   seatBefore = Book.change(bookid, seatid);
                 if(seatBefore != -1)  success = Seat.unbook(seatBefore);

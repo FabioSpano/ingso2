@@ -33,7 +33,7 @@ mealRoutes.route('/')
 			meal.second = req.query.second;
 			meal.dessert = req.query.dessert;
 			meal.date = req.query.date;
-			if(meal.first != "" && meal.second != "" && meal.dessert != "" && UtilDate.isValidDate(meal.date))		saved = await meal.save();
+			if(meal.first != null && meal.second != null && meal.dessert != null && UtilDate.isValidDate(meal.date) && meal.date != null)		saved = await meal.save();
 			if(saved != null){
 				res.status(201);
 				res.json([{message: 'Meal correctly created'}]);

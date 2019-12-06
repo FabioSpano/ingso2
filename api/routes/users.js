@@ -31,7 +31,7 @@ usersRoutes.route('/')
 			user.email = req.query.email;
 			var saved = null;
 
-			if(user.email != "" && UtilEmail.validateEmail(user.email))		
+			if(user.email != null && UtilEmail.validateEmail(user.email))		
 				saved = await user.save();
 			if(saved != null){
 				res.status(201);
@@ -95,7 +95,7 @@ usersRoutes.route('/:user_mat')
 	.put(async function(req,res){
 		try{
 			let matchingUser = User.findByMatricola(req.params.user_mat);
-			if(matchingUser != null && UtilEmail.validateEmail(req.query.email)){
+			if(matchingUser != null && UtilEmail.validateEmail(req.query.email) && req.query.email != null){
 				User.change(req.params.user_mat,
 					req.query.email || matchingUser.email)
 				res.status(201);
