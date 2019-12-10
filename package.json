@@ -1,0 +1,26 @@
+{
+  "name": "bookmeal",
+  "version": "1.0.0",
+  "description": "Software to book a seat to having the meal",
+  "main": "index.js",
+  "scripts": {
+    "test": "start",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Spanix98/ingso2.git"
+  },
+  "author": "ingso2",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Spanix98/ingso2/issues"
+  },
+  "homepage": "https://github.com/Spanix98/ingso2#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
+    "telegraf": "^3.34.1",
+    "uniqid": "^5.1.0"
+  }
+}
