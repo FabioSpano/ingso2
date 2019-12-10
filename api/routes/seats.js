@@ -38,10 +38,10 @@ seatsRoutes.route('/')
 		}
     })
 
-seatsRoutes.route('/:nseat')
+seatsRoutes.route('/:nseats')
     .post(async function(req,res){
         try{
-            var numberOfSeat = req.params.nseat;
+            var numberOfSeat = req.params.nseats;
             var saved=[];
             for(let i=0 ; i<numberOfSeat; i++) {
                 var seat = new Seat();

@@ -1,0 +1,517 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: "Seat&Meals API"
+  description: API for the university canteen. It allows to visualize the list of the seats available, to book a seat, to visualize the canteen menu and to make reviews about it.
+  license: 
+    name: Seat&Meals API
+    url: https://github.com/Spanix98/ingso2
+  contact:
+    email: fabio.spano@studenti.unitn.it
+host: bookmealunitn.herokuapp.com
+basePath: /
+tags: 
+- name: "USERS"
+- name: "MEALS"
+- name: "SEATS"
+- name: "BOOKS"
+- name: "REVIEWS"
+
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /users:
+    post:
+      tags:
+      - "Users"
+      summary: "Create new user"
+      description: "The user can create a new user by insert the email."
+      operationId: "addUser"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "New user who have to be added to the system"
+        required: true
+        schema:
+          $ref: "#/definitions/users"
+          
+      responses:
+        201:
+          description: "User correctly created"
+        400:
+          description: "ERROR 400: User not created maybe for a mistake in the email param!" 
+        500:
+          description: "ERROR 500: Local server error"
+    get:
+      tags:
+      - "Users"
+      summary: "View all the users"
+      description: "For each user are shown the email and the id."
+      operationId: "showAllUsers"
+      responses:
+        200:
+          description: "List of users found"
+        404:
+          description: "No users found!"
+        500:
+          description: "ERROR 500: Local server error"
+    delete:
+      tags:
+      - "Users"
+      summary: "Delete all the users"
+      description: "All the users are eliminated."
+      operationId: "deleteAllUsers"
+      responses:
+        200:
+          description: "All users are cancelled"
+        404:
+          description: "ERROR 404: All users are already cancelled"
+        500:
+          description: "ERROR 500: Local server error"
+    put:
+      tags:
+      - "User"
+      summary: "Update the user"
+      description: "The user is modified"
+      operationId: "updateUser"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Update user"
+          required: true
+          schema:
+            $ref: "#/definitions/usersput"
+      responses:
+        201:
+          description: "User correctly modified"
+        400:
+          description: "User not found"
+        500:
+          description: "ERROR 500: Local server error"
+        
+  /users/{user_mat}:
+    get:
+      tags:
+      - "Users"
+      summary: "View the user information."
+      description: "The user is shown."
+      operationId: "showUser"
+      parameters:
+        - in: "path"
+          name: "user_mat"
+          description: "Id of the user to get"
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        200:
+          description: "User correctly found"
+        404:
+          description: "User not found"
+        500:
+          description: "ERROR 500: Local server error"
+          
+    delete:
+      tags:
+      - "User"
+      summary: "Delete the user"
+      description: "The user is eliminated"
+      operationId: "deleteUser"
+      parameters:
+        - in: "path"
+          name: "user_mat"
+          description: "ID of user to delete"
+          required: true
+          type: "string"
+          format: "string64"
+      responses:
+        200:
+          description: "Successfully deleted"
+        404:
+          description: "Invalid matricola"
+        500:
+          description: "ERROR 500: Local server error"
+
+  /meals:
+    post:
+      tags:
+      - "Meals"
+      summary: "Create a new meal"
+      description: "The administrator creates a new meal for a specific date. In case of errors the meal will not be created."
+      operationId: "addMeals"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "New meal"
+        required: true
+        schema:
+          $ref: "#/definitions/meals"
+
+      responses:
+        201:
+          description: "Meal correctly created"
+        400:
+          description: "ERROR 400: Meal not created. There is a mistake in the syntax"
+        500:
+          description: "ERROR 500: Local server error"
+      
+    get:
+      tags:
+      - "Meals"
+      summary: "View all the meals"
+      description: "Meals are shown."
+      operationId: "showAllMeals"
+      responses:
+        200:
+          description: "Meals found!"
+        404:
+          description: "ERROR 404: No meals found!"
+        500:
+          description: "ERROR 500: Local server error"
+        
+    delete:
+      tags:
+      - "Meals"
+      summary: "Delete all the meals"
+      description: "Delete the entire list of meals"
+      operationId: "deleteMeals"
+      responses:
+        200:
+          description: "All meals are cancelled"
+        400:
+          description: "ERROR 404: All meals are already cancelled"
+        500:
+          description: "ERROR 500: Local server error"
+        
+  /meals/{date}:
+    get:
+      tags:
+      - "Meals"
+      summary: "View a meal in a specific date."
+      description: "The meal is shown."
+      operationId: "showMealDate"
+      parameters:
+        - in: "path"
+          name: "date"
+          description: "Date of meal to get"
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        200:
+          description: "Meal correctly found!"
+        404:
+          description: "ERROR 404: Meal not found"
+        500:
+          description: "ERROR 500: Local server error!"
+
+  /seats:
+    get:
+      tags:
+      - "Seats"
+      summary: "Return the list of all seats."
+      description: "All the seats are printed."
+      operationId: "getSeats"
+      responses:
+        200:
+          description: "List of seats found!"
+        404:
+          description: "ERROR 404: No seats found!"
+        500:
+          description: "ERROR 500: Local server error!"
+      
+    delete:
+      tags:
+      - "Seats"
+      summary: "Delete all the seats"
+      description: "All the seats are deleted"
+      operationId: "deleteSeat"
+      responses:
+        200:
+          description: "List of seats deleted!"
+        400:
+          description: "ERROR 404: No seats found!"
+        500:
+          description: "ERROR 500: Local server error!"
+          
+  /seats/{nseats}:
+    post:
+      tags:
+      - "Seats"
+      summary: "Insert a number of seats."
+      description: "Seats are added."
+      operationId: "showSeat"
+      parameters:
+        - in: "path"
+          name: "nseats"
+          description: "Number of seats to insert"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        201:
+          description: "Seats correctly created"
+        404:
+          description: "ERROR 404: Seats not created!"
+        500:
+          description: "ERROR 500: Local server error!"
+  /books:
+    get:
+      tags:
+      - "Books"
+      summary: "Return the list of all bookings."
+      description: "All the bookings are printed."
+      operationId: "getBookings"
+      responses:
+        200:
+          description: "List of books found!"
+        404:
+          description: "ERROR 404: No books found!"
+        500:
+          description: "ERROR 500: Local server error!"
+      
+    delete:
+      tags:
+      - "Books"
+      summary: "Delete all the bookings"
+      description: "All the bookings are deleted"
+      operationId: "deleteBookings"
+      responses:
+        200:
+          description: "List of books deleted!"
+        400:
+          description: "ERROR 404: No books found!"
+        500:
+          description: "ERROR 500: Local server error!"
+          
+  /books/{user_mat}:
+    post:
+      tags:
+      - "Books"
+      summary: "Create a seat booking"
+      description: "The user books a seat in the canteen."
+      operationId: "addBooking"
+      parameters:
+      - in: "path"
+        name: "user_mat"
+        description: "Id of the user who are making the booking"
+        required: true
+        type: "string"
+        format: "string"
+      - in: "body"
+        name: "body"
+        description: "Seat which has to be booked"
+        schema:
+          $ref: "#/definitions/books"
+
+      responses:
+        201:
+          description: "Seats correctly booked"
+        400:
+          description: "ERROR 400: Seats does not exist or it is already booked"
+        404:
+          description: "ERROR 404: User not found"
+        500:
+          description: "ERROR 500: Local server error!"
+    get:
+      tags:
+      - "Books"
+      summary: "View the bookings of that user"
+      description: "Booking are shown"
+      operationId: "showBooksUser_mat"
+      parameters:
+        - in: "path"
+          name: "user_mat"
+          description: "ID of user to get"
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        200:
+          description: "List of books found!"
+        404:
+          description: "ERROR 404: No books found or user incorrect!"
+        500:
+          description: "ERROR 500: Local server error!"
+    put:
+      tags:
+      - "Books"
+      summary: "Update a booking"
+      description: "The booking is update"
+      operationId: "updateBooking"
+      parameters:
+        - in: "path"
+          name: "user_mat"
+          description: "ID of user to get"
+          required: true
+          type: "string"
+          format: "string"
+        - in: "body"
+          name: "body"
+          description: "Update bookings"
+          required: true
+          schema:
+            $ref: "#/definitions/booksput"
+      responses:
+        200:
+          description: "Book changed!"
+        404:
+          description: "ERROR 404: Book not changed because the user was incorrect or the booking does not exist!"
+        500:
+          description: "ERROR 500: Local server error!"
+  /reviews:
+    post:
+      tags:
+      - "Reviews"
+      summary: "Create a new review"
+      description: "The user creates a new review for a specific meal. In case of errors the review will not be created."
+      operationId: "addReviews"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "New review"
+        required: true
+        schema:
+          $ref: "#/definitions/reviews"
+
+      responses:
+        201:
+          description: "Review correctly created"
+        400:
+          description: "ERROR 400: Review not created, probably no review written or the meal date is incorrect!"
+        500:
+          description: "ERROR 500: Local server error"
+    get:
+      tags:
+      - "Reviews"
+      summary: "Return the list of all reviews."
+      description: "All the reviews are printed."
+      operationId: "getReviews"
+      responses:
+        200:
+          description: "Reviews found!"
+        404:
+          description: "ERROR 404: No reviews found!"
+        500:
+          description: "ERROR 500: Local server error!"
+    delete:
+      tags:
+      - "Reviews"
+      summary: "Delete all the reviews"
+      description: "All the reviews are deleted"
+      operationId: "deleteReviews"
+      responses:
+        200:
+          description: "All reviews are cancelled"
+        400:
+          description: "ERROR 404: All reviews are already cancelled"
+        500:
+          description: "ERROR 500: Local server error!"
+  /reviews/{review_id}:
+    get:
+      tags:
+      - "Reviews"
+      summary: "View a review with a specific date."
+      description: "The review is shown."
+      operationId: "showReviewById"
+      parameters:
+        - in: "path"
+          name: "review_id"
+          description: "Id of review to get"
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        200:
+          description: "Review correctly found!"
+        404:
+          description: "ERROR 404: Review not found!"
+        500:
+          description: "ERROR 500: Local server error!"
+      
+  
+definitions:
+
+  users:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+        example: "francesco@gmail.com"
+  usersput:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+        example: "francesco@gmail.com"
+      user_mat:
+        type: "string"
+        example: "1hgdjsk3k5hskkkkp"
+      
+  meals:
+    type: "object"
+    properties:
+      first:
+        type: "string"
+        example: "pasta"
+      second:
+        type: "string"
+        example: "carne"
+      dessert:
+        type: "string"
+        example: "dolce"
+      date:
+        type: "string"
+        example: "11-11-2011"
+  
+  books:
+    type: "object"
+    properties:
+      seatid:
+        type: "integer"
+        format: "int64"
+        example: 20
+        
+  booksput:
+    type: "object"
+    properties:
+      bookid:
+        type: "string"
+        example: "1gwejnbvjibijgsh734i8"
+      seatid:
+        type: "integer"
+        format: "int64"
+        example: 20
+    
+  reviews:
+    type: "object"
+    properties:
+      reviewText:
+        type: "integer"
+        example: "blablablablablablabla"
+      mealDate:
+        type: "string"
+        example: "11-11-2011"
+      
+  seats:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      booked:
+        type: "boolean"
+      
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"

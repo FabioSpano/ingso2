@@ -67,7 +67,7 @@ usersRoutes.route('/:user_mat')
 			let users_m = User.findByMatricola(req.params.user_mat);
 			if(users_m != null){
 				res.status(200);
-				res.json([user_m, {message: 'User correctly found!'}])
+				res.json([users_m, {message: 'User correctly found!'}])
 			}else{
 				res.status(404);
 				res.json({message: 'ERROR 404: User not found'});
@@ -96,7 +96,7 @@ usersRoutes.route('/')
 		try{
 			let matchingUser = User.findByMatricola(req.query.user_mat);
 			if(matchingUser != null && UtilEmail.validateEmail(req.query.email) && req.query.email != null){
-				User.change(req.params.user_mat,
+				User.change(req.query.user_mat,
 					req.query.email || matchingUser.email)
 				res.status(201);
 				res.json({message: 'User correctly modified!'})
