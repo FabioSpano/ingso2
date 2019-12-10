@@ -7,11 +7,11 @@ const seatsRoutes = require('./api/routes/seats');
 const bookRoutes = require('./api/routes/book');
 const reviewRoutes = require('./api/routes/review');
 
-app.use('/users', userRoutes);
-app.use('/meals', mealRoutes);
-app.use('/seats', seatsRoutes);
-app.use('/books', bookRoutes);
-app.use('/reviews', reviewRoutes);
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/meals', mealRoutes);
+app.use('/api/v1/seats', seatsRoutes);
+app.use('/api/v1/books', bookRoutes);
+app.use('/api/v1/reviews', reviewRoutes);
 
 app.use('/', express.static('public'));
 
