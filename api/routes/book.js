@@ -104,7 +104,7 @@ bookRoutes.route('/:user_mat')
                 res.json([{message: 'Book changed!'}]);
             }else{
                 res.status(400);
-                res.json({message: 'ERROR 404: Book not changed because the user was incorrect or the booking does not exist!'});
+                res.json({message: 'ERROR 400: Book not changed because the user was incorrect or the booking does not exist!'});
             }
         }catch(error){
 			res.status(500);

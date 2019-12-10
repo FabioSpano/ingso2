@@ -42,6 +42,13 @@ paths:
       responses:
         201:
           description: "User correctly created"
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/userview'
+            example:
+              - email: francesco@gmail.com
+                mat: 12ghujebhbh23rr1
         400:
           description: "ERROR 400: User not created maybe for a mistake in the email param!" 
         500:
@@ -54,7 +61,16 @@ paths:
       operationId: "showAllUsers"
       responses:
         200:
-          description: "List of users found"
+          description: "List of users found!"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/userview'
+            example:
+              - email: france@gmail.com
+                mat: 12ghujebhbh23rr1
+              - email: fabio@yahoo.it
+                mat: 12ghgarghbh23rr1
         404:
           description: "No users found!"
         500:
@@ -110,6 +126,13 @@ paths:
       responses:
         200:
           description: "User correctly found"
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/userview'
+            example:
+              - email: francesco@gmail.com
+                mat: 12ghujebhbh23rr1
         404:
           description: "User not found"
         500:
@@ -168,6 +191,21 @@ paths:
       responses:
         200:
           description: "Meals found!"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/mealview'
+            example:
+              - first: pasta
+                second: carne
+                dessert: budino
+                date: 11-11-2011
+                mealid: 65vhsfbhj
+              - first: riso
+                second: pesce
+                dessert: frutta
+                date: 08-06-2019
+                mealid: 65vhdfbhj
         404:
           description: "ERROR 404: No meals found!"
         500:
@@ -204,6 +242,16 @@ paths:
       responses:
         200:
           description: "Meal correctly found!"
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/mealview'
+            example:
+              - first: pasta
+                second: carne
+                dessert: budino
+                date: 11-11-2011
+                mealid: 65vhsfbhj
         404:
           description: "ERROR 404: Meal not found"
         500:
@@ -219,6 +267,17 @@ paths:
       responses:
         200:
           description: "List of seats found!"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/seats'
+            example:
+              - booked: false
+                seatid: 0
+              - booked: false
+                seatid: 1
+              - booked: true
+                seatid: 2
         404:
           description: "ERROR 404: No seats found!"
         500:
@@ -255,8 +314,19 @@ paths:
       responses:
         201:
           description: "Seats correctly created"
-        404:
-          description: "ERROR 404: Seats not created!"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/seats'
+            example:
+              - booked: false
+                seatid: 0
+              - booked: false
+                seatid: 1
+              - booked: true
+                seatid: 2
+        400:
+          description: "ERROR 400: Seats not created!"
         500:
           description: "ERROR 500: Local server error!"
   /books:
@@ -269,6 +339,19 @@ paths:
       responses:
         200:
           description: "List of books found!"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/bookview'
+            example:
+              - seatid: 2
+                date: 2019-12-10T18:09:16.543Z
+                user: 12ghujebhbh23rr1
+                id: 23frwbegsne
+              - seatid: 5
+                date: 2015-11-10T12:10:16.543Z
+                user: 12ghujebhbh23fcv
+                id: 23frvggfsne
         404:
           description: "ERROR 404: No books found!"
         500:
@@ -333,6 +416,19 @@ paths:
       responses:
         200:
           description: "List of books found!"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/bookview'
+            example:
+              - seatid: 2
+                date: 2019-12-10T18:09:16.543Z
+                user: 12ghujebhbh23rr1
+                id: 23frwbegsne
+              - seatid: 5
+                date: 2015-11-10T12:10:16.543Z
+                user: 12ghujebhbh23fcv
+                id: 23frwbegsne
         404:
           description: "ERROR 404: No books found or user incorrect!"
         500:
@@ -359,8 +455,8 @@ paths:
       responses:
         200:
           description: "Book changed!"
-        404:
-          description: "ERROR 404: Book not changed because the user was incorrect or the booking does not exist!"
+        400:
+          description: "ERROR 400: Book not changed because the user was incorrect or the booking does not exist!"
         500:
           description: "ERROR 500: Local server error!"
   /reviews:
@@ -394,6 +490,19 @@ paths:
       responses:
         200:
           description: "Reviews found!"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/reviewview'
+            example:
+              - date: 2019-12-10T18:09:16.543Z
+                reviewText: blablabla
+                mealDate: 09-12-2018
+                reviewid: 12sfvaagbne
+              - date: 2011-10-10T18:10:16.543Z
+                reviewText: blabla
+                mealDate: 09-12-2018
+                id: 12sfhyibne
         404:
           description: "ERROR 404: No reviews found!"
         500:
@@ -415,7 +524,7 @@ paths:
     get:
       tags:
       - "Reviews"
-      summary: "View a review with a specific date."
+      summary: "View a review with a specific id."
       description: "The review is shown."
       operationId: "showReviewById"
       parameters:
@@ -428,6 +537,15 @@ paths:
       responses:
         200:
           description: "Review correctly found!"
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/reviewview'
+            example:
+              - date: 2019-12-10T18:09:16.543Z
+                reviewText: blablabla
+                mealDate: 09-12-2018
+                reviewid: 12sfvaagbne
         404:
           description: "ERROR 404: Review not found!"
         500:
@@ -451,6 +569,13 @@ definitions:
       user_mat:
         type: "string"
         example: "1hgdjsk3k5hskkkkp"
+  userview:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      mat:
+        type: "string"
       
   meals:
     type: "object"
@@ -467,6 +592,19 @@ definitions:
       date:
         type: "string"
         example: "11-11-2011"
+  mealview:
+    type: "object"
+    properties:
+      first:
+        type: "string"
+      second:
+        type: "string"
+      dessert:
+        type: "string"
+      date:
+        type: "string"
+      mealid:
+        type: "string"
   
   books:
     type: "object"
@@ -486,21 +624,44 @@ definitions:
         type: "integer"
         format: "int64"
         example: 20
+        
+  bookview:
+    type: "object"
+    properties:
+      seatid:
+        type: "integer"
+      date:
+        type: "string"
+      user:
+        type: "string"
+      id:
+        type: "string"
     
   reviews:
     type: "object"
     properties:
-      reviewText:
-        type: "integer"
+      review:
+        type: "string"
         example: "blablablablablablabla"
       mealDate:
         type: "string"
         example: "11-11-2011"
+  reviewview:
+    type: "object"
+    properties:
+      date:
+        type: "string"
+      reviewText:
+        type: "string"
+      mealDate:
+        type: "string"
+      reviewid:
+        type: "string"
       
   seats:
     type: "object"
     properties:
-      id:
+      seatid:
         type: "integer"
       booked:
         type: "boolean"

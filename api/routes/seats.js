@@ -53,8 +53,8 @@ seatsRoutes.route('/:nseats')
                 res.status(201);
                 res.json([saved , {message: 'Seats correctly created'}]);
             }else{
-                res.status(404);
-                res.json({message: 'ERROR 404: Seats not created!'});
+                res.status(400);
+                res.json({message: 'ERROR 400: Seats not created!'});
             }
         }catch(error){
 			res.status(500);
