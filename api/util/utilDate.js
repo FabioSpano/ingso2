@@ -22,7 +22,7 @@ class UtilDate {
     static isBefore(dateString)
     {
         var todaydate = new Date();
-        var vectorDate = dateString.split('/');
+        var vectorDate = dateString.split('-');
 
         var day = parseInt(vectorDate[0], 10);
         var month = parseInt(vectorDate[1], 10);
@@ -31,7 +31,7 @@ class UtilDate {
         if(year < todaydate.getFullYear())
             return true;
         
-        if(month < todaydate.getMonth() && year == todaydate.getFullYear())
+        if(month < todaydate.getMonth()+1 && year == todaydate.getFullYear())
             return true;
 
         if(day <= todaydate.getDate() && month == todaydate.getMonth() && year == todaydate.getFullYear())
