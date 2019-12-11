@@ -164,7 +164,7 @@ paths:
       tags:
       - "Meals"
       summary: "Create a new meal"
-      description: "The administrator creates a new meal for a specific date. In case of errors the meal will not be created."
+      description: "The administrator creates a new meal for a specific date. You can put one meal for date."
       operationId: "addMeals"
       parameters:
       - in: "body"
@@ -301,8 +301,8 @@ paths:
     post:
       tags:
       - "Seats"
-      summary: "Insert a number of seats."
-      description: "Seats are added."
+      summary: "Add seats"
+      description: "A specific number of seats is added."
       operationId: "showSeat"
       parameters:
         - in: "path"
@@ -375,8 +375,8 @@ paths:
     post:
       tags:
       - "Books"
-      summary: "Create a seat booking"
-      description: "The user books a seat in the canteen."
+      summary: "Create a seat booking."
+      description: "The user books a seat in the canteen. You can book a seat which is not already booked. The booking duration is of one day."
       operationId: "addBooking"
       parameters:
       - in: "path"
@@ -437,7 +437,7 @@ paths:
       tags:
       - "Books"
       summary: "Update a booking"
-      description: "The booking is update"
+      description: "The booking is update. The seat is changed if the inserted one is not already booked."
       operationId: "updateBooking"
       parameters:
         - in: "path"
@@ -464,7 +464,7 @@ paths:
       tags:
       - "Reviews"
       summary: "Create a new review"
-      description: "The user creates a new review for a specific meal. In case of errors the review will not be created."
+      description: "The user creates a new review for a specific meal. In case of errors the review will not be created. If the review is refered to a future meals, the system won't insert it."
       operationId: "addReviews"
       parameters:
       - in: "body"
