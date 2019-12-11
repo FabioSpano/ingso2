@@ -34,8 +34,8 @@ reviewRoutes.route('/')
             var review = new Review();
             var saved = null;
             review.date = new Date();
-            review.reviewText = req.query.review;
-            review.mealDate = req.query.mealDate;
+            review.reviewText = req.body.review;
+            review.mealDate = req.body.mealDate;
             if (review.reviewText != null && Meal.findByDate(review.mealDate) != null && UtilDate.isBefore(review.mealDate))
                 saved = await review.save();            
             if(saved != null){

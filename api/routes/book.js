@@ -13,7 +13,7 @@ bookRoutes.route('/:user_mat')
         try{
             var usermat = req.params.user_mat;
             if(User.findByMatricola(usermat)!=null){
-                var seatid = req.query.seatid;
+                var seatid = req.body.seatid;
                 var saved = null;
                 var book = new Book();
                 if (Book.findBySeat(seatid) && Seat.book(seatid) && seatid != null){
@@ -91,8 +91,8 @@ bookRoutes.route('/:user_mat')
     .put(async function(req, res) {
         try{
             var usermat = req.params.user_mat;
-            var bookid = req.query.bookid;
-            var seatid = req.query.seatid;
+            var bookid = req.body.bookid;
+            var seatid = req.body.seatid;
             var success = false;
             if(Book.findByID(bookid) && seatid != null && User.findByMatricola(usermat)!=null){
                 var seatBefore = -1;

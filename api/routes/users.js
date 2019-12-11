@@ -28,7 +28,7 @@ usersRoutes.route('/')
 	.post(async function(req,res){
 		try{
 			var user = new User();
-			user.email = req.query.email;
+			user.email = req.body.email;
 			var saved = null;
 
 			if(user.email != null && UtilEmail.validateEmail(user.email))		
@@ -94,10 +94,10 @@ usersRoutes.route('/:user_mat')
 usersRoutes.route('/')
 	.put(async function(req,res){
 		try{
-			let matchingUser = User.findByMatricola(req.query.user_mat);
-			if(matchingUser != null && UtilEmail.validateEmail(req.query.email) && req.query.email != null){
-				User.change(req.query.user_mat,
-					req.query.email || matchingUser.email)
+			let matchingUser = User.findByMatricola(req.body.user_mat);
+			if(matchingUser != null && UtilEmail.validateEmail(req.body.email) && req.body.email != null){
+				User.change(req.body.user_mat,
+					req.body.email || matchingUser.email)
 				res.status(201);
 				res.json({message: 'User correctly modified!'})
 			}else{
