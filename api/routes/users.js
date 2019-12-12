@@ -35,7 +35,7 @@ usersRoutes.route('/')
 				res.json([saved , {message: 'User correctly created'}]);
 			}else{
 				res.status(400);
-				res.json({message: 'ERROR 400: User not created maybe for a mistake in the email param!'});
+				res.json({message: 'ERROR 400: User not created maybe for a mistake in the query params!'});
 			}
 		}catch(error){
 			res.status(500);
@@ -91,10 +91,10 @@ usersRoutes.route('/:user_mat')
 usersRoutes.route('/')
 	.put(async function(req,res){
 		try{
-			let matchingUser = User.findByMatricola(req.body.user_mat);
-			if(matchingUser != null && UtilEmail.validateEmail(req.body.email) && req.body.email != null){
-				User.change(req.body.user_mat,
-					req.body.email || matchingUser.email)
+			let matchingUser = User.findByMatricola(req.query.mat);
+			if(matchingUser != null && UtilEmail.validateEmail(req.query.email) && req.query.email != null){
+				User.change(req.query.mat,
+					req.query.email || matchingUser.email)
 				res.status(201);
 				res.json({message: 'User correctly modified!'})
 			}else{
