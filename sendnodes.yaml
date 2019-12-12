@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   version: '1.0'
   title: "Seat&Meals API"
-  description: API for the university canteen. It allows to visualize the list of the seats available, to book a seat, to visualize the canteen menu and to make reviews about it.
+  description: API for the university canteen. It allows to visualize the list of the seats available, to book a seat, to visualize the canteen menu and to make reviews about it. All APIs are tested with request data passed trough 'query params' section in Postman.   
   license: 
     name: Seat&Meals API
     url: https://github.com/Spanix98/ingso2
@@ -29,15 +29,19 @@ paths:
       tags:
       - "Users"
       summary: "Create new user"
-      description: "The user can create a new user by insert the email."
+      description: "The user can create a new user by putting the email and the id."
       operationId: "addUser"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "New user who have to be added to the system"
+      - in: query
+        name: email
+        description: "The user email. Example: france@gmail.com"
+        type: string
         required: true
-        schema:
-          $ref: "#/definitions/users"
+      - in: query
+        name: mat
+        description: "The user id. Example: 111111"
+        type: string
+        required: true
           
       responses:
         201:
@@ -48,9 +52,9 @@ paths:
               $ref: '#/definitions/userview'
             example:
               - email: francesco@gmail.com
-                mat: 12ghujebhbh23rr1
+                mat: 111111
         400:
-          description: "ERROR 400: User not created maybe for a mistake in the email param!" 
+          description: "ERROR 400: User not created maybe for a mistake in the query params!" 
         500:
           description: "ERROR 500: Local server error"
     get:
@@ -68,9 +72,9 @@ paths:
               $ref: '#/definitions/userview'
             example:
               - email: france@gmail.com
-                mat: 12ghujebhbh23rr1
+                mat: 111112
               - email: fabio@yahoo.it
-                mat: 12ghgarghbh23rr1
+                mat: 111111
         404:
           description: "No users found!"
         500:
@@ -91,16 +95,20 @@ paths:
     put:
       tags:
       - "User"
-      summary: "Update the user"
-      description: "The user is modified"
+      summary: "Update the user who has that id."
+      description: "The user email is modified"
       operationId: "updateUser"
       parameters:
-        - in: "body"
-          name: "body"
-          description: "Update user"
+        - in: query
+          name: email
+          description: "The user email. Example: fra@gmail.com"
+          type: string
           required: true
-          schema:
-            $ref: "#/definitions/usersput"
+        - in: query
+          name: mat
+          description: "The user id. Example: 111111"
+          type: string
+          required: true
       responses:
         201:
           description: "User correctly modified"
@@ -132,7 +140,7 @@ paths:
               $ref: '#/definitions/userview'
             example:
               - email: francesco@gmail.com
-                mat: 12ghujebhbh23rr1
+                mat: 111110
         404:
           description: "User not found"
         500:
@@ -167,12 +175,26 @@ paths:
       description: "The administrator creates a new meal for a specific date. You can put one meal for date."
       operationId: "addMeals"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "New meal"
+      - in: query
+        name: first
+        description: "The first plate. Example: pasta"
+        type: string
         required: true
-        schema:
-          $ref: "#/definitions/meals"
+      - in: query
+        name: second
+        description: "The second plate. Example: carne"
+        type: string
+        required: true
+      - in: query
+        name: dessert
+        description: "The dessert. Example: torta"
+        type: string
+        required: true
+      - in: query
+        name: date
+        description: "The date of the meal. Example: dd-mm-yyyy"
+        type: string
+        required: true
 
       responses:
         201:
@@ -346,11 +368,11 @@ paths:
             example:
               - seatid: 2
                 date: 2019-12-10T18:09:16.543Z
-                user: 12ghujebhbh23rr1
+                user: 111110
                 id: 23frwbegsne
               - seatid: 5
                 date: 2015-11-10T12:10:16.543Z
-                user: 12ghujebhbh23fcv
+                user: 111111
                 id: 23frvggfsne
         404:
           description: "ERROR 404: No books found!"
@@ -385,11 +407,11 @@ paths:
         required: true
         type: "string"
         format: "string"
-      - in: "body"
-        name: "body"
-        description: "Seat which has to be booked"
-        schema:
-          $ref: "#/definitions/books"
+      - in: query
+        name: seatid
+        description: "The seat id. Examle: 3"
+        type: integer
+        required: true
 
       responses:
         201:
@@ -423,11 +445,11 @@ paths:
             example:
               - seatid: 2
                 date: 2019-12-10T18:09:16.543Z
-                user: 12ghujebhbh23rr1
+                user: 111110
                 id: 23frwbegsne
               - seatid: 5
                 date: 2015-11-10T12:10:16.543Z
-                user: 12ghujebhbh23fcv
+                user: 111111
                 id: 23frwbegsne
         404:
           description: "ERROR 404: No books found or user incorrect!"
@@ -436,7 +458,7 @@ paths:
     put:
       tags:
       - "Books"
-      summary: "Update a booking"
+      summary: "Update a booking of the user inserted and the id specified."
       description: "The booking is update. The seat is changed if the inserted one is not already booked."
       operationId: "updateBooking"
       parameters:
@@ -446,12 +468,16 @@ paths:
           required: true
           type: "string"
           format: "string"
-        - in: "body"
-          name: "body"
-          description: "Update bookings"
+        - in: query
+          name: bookid
+          description: "The booking id. Examle: 1gwejnbvjibijgsh734i8"
+          type: string
           required: true
-          schema:
-            $ref: "#/definitions/booksput"
+        - in: query
+          name: seatid
+          description: "The seat id. Examle: 4"
+          type: integer
+          required: true
       responses:
         200:
           description: "Book changed!"
@@ -467,12 +493,16 @@ paths:
       description: "The user creates a new review for a specific meal. In case of errors the review will not be created. If the review is refered to a future meals, the system won't insert it."
       operationId: "addReviews"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "New review"
+      - in: query
+        name: review
+        description: "The text of the review. Examle: blablabla"
+        type: string
         required: true
-        schema:
-          $ref: "#/definitions/reviews"
+      - in: query
+        name: mealDate
+        description: "The date of the meal. Examle: dd-mm-yyyy"
+        type: string
+        required: true
 
       responses:
         201:
@@ -554,21 +584,6 @@ paths:
   
 definitions:
 
-  users:
-    type: "object"
-    properties:
-      email:
-        type: "string"
-        example: "francesco@gmail.com"
-  usersput:
-    type: "object"
-    properties:
-      email:
-        type: "string"
-        example: "francesco@gmail.com"
-      user_mat:
-        type: "string"
-        example: "1hgdjsk3k5hskkkkp"
   userview:
     type: "object"
     properties:
@@ -577,21 +592,6 @@ definitions:
       mat:
         type: "string"
       
-  meals:
-    type: "object"
-    properties:
-      first:
-        type: "string"
-        example: "pasta"
-      second:
-        type: "string"
-        example: "carne"
-      dessert:
-        type: "string"
-        example: "dolce"
-      date:
-        type: "string"
-        example: "11-11-2011"
   mealview:
     type: "object"
     properties:
@@ -605,25 +605,6 @@ definitions:
         type: "string"
       mealid:
         type: "string"
-  
-  books:
-    type: "object"
-    properties:
-      seatid:
-        type: "integer"
-        format: "int64"
-        example: 20
-        
-  booksput:
-    type: "object"
-    properties:
-      bookid:
-        type: "string"
-        example: "1gwejnbvjibijgsh734i8"
-      seatid:
-        type: "integer"
-        format: "int64"
-        example: 20
         
   bookview:
     type: "object"
@@ -636,16 +617,7 @@ definitions:
         type: "string"
       id:
         type: "string"
-    
-  reviews:
-    type: "object"
-    properties:
-      review:
-        type: "string"
-        example: "blablablablablablabla"
-      mealDate:
-        type: "string"
-        example: "11-11-2011"
+        
   reviewview:
     type: "object"
     properties:
