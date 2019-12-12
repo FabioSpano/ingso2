@@ -1,8 +1,6 @@
 const express = require('express');
 const mealRoutes = express.Router();
-const bodyParser = require('body-parser');
 
-mealRoutes.use(bodyParser.urlencoded({ extended: true }));
 
 const Meal = require('../models/meal');
 const UtilDate = require('../util/utilDate');
@@ -29,10 +27,10 @@ mealRoutes.route('/')
 		try{
 			var meal = new Meal();
 			var saved = null;  
-			meal.first = req.body.first;
-			meal.second = req.body.second;
-			meal.dessert = req.body.dessert;
-			meal.date = req.body.date;
+			meal.first = req.query.first;
+			meal.second = req.query.second;
+			meal.dessert = req.query.dessert;
+			meal.date = req.query.date;
 			if(meal.first != null && meal.second != null && meal.dessert != null && UtilDate.isValidDate(meal.date) && meal.date != null && Meal.findByDate(meal.date) == null)	
 				saved = await meal.save();
 			if(saved != null){

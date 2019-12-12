@@ -22,7 +22,7 @@ bot.hears('/meals', message => {
     var year = date.getFullYear();
     var stringDate =  day + "-" + month + "-" + year;
 
-    var url = "https://bookmealunitn.herokuapp.com/meals/" + stringDate;
+    var url = "https://bookmealunitn.herokuapp.com/api/v1/meals/" + stringDate;
 
     https
     .get(url, resp => {
@@ -53,7 +53,7 @@ bot.hears('/meals', message => {
 });
 
 bot.hears('/seats', message => {
-    var url = "https://bookmealunitn.herokuapp.com/seats";
+    var url = "https://bookmealunitn.herokuapp.com/api/v1/seats";
 
     https
     .get(url, resp => {

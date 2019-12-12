@@ -1,8 +1,5 @@
 const express = require('express');
 const seatsRoutes = express.Router();
-const bodyParser = require('body-parser');
-
-seatsRoutes.use(bodyParser.urlencoded({ extended: true }));
 
 const Seat = require('../models/seats');
 const Book = require('../models/book')

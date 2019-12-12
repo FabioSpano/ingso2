@@ -1,9 +1,5 @@
-//var uniqid = require('uniqid');
 const express = require('express');
 const usersRoutes = express.Router();
-const bodyParser = require('body-parser');
-
-usersRoutes.use(bodyParser.urlencoded({ extended: true }));
 
 const User = require('../models/users');
 const UtilEmail = require ('../util/utilEmail')
@@ -28,11 +24,12 @@ usersRoutes.route('/')
 	.post(async function(req,res){
 		try{
 			var user = new User();
-			user.email = req.body.email;
+			var mat = req.query.mat;
+			user.email = req.query.email;
 			var saved = null;
 
-			if(user.email != null && UtilEmail.validateEmail(user.email))		
-				saved = await user.save();
+			if(mat != null && user.email != null && UtilEmail.validateEmail(user.email))		
+				saved = await user.save(mat);
 			if(saved != null){
 				res.status(201);
 				res.json([saved , {message: 'User correctly created'}]);

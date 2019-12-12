@@ -1,8 +1,5 @@
 const express = require('express');
 const reviewRoutes = express.Router();
-const bodyParser = require('body-parser');
-
-reviewRoutes.use(bodyParser.urlencoded({ extended: true }));
 
 const Review = require('../models/review');
 const Meal = require('../models/meal');
@@ -34,8 +31,8 @@ reviewRoutes.route('/')
             var review = new Review();
             var saved = null;
             review.date = new Date();
-            review.reviewText = req.body.review;
-            review.mealDate = req.body.mealDate;
+            review.reviewText = req.query.review;
+            review.mealDate = req.query.mealDate;
             if (review.reviewText != null && Meal.findByDate(review.mealDate) != null && UtilDate.isBefore(review.mealDate))
                 saved = await review.save();            
             if(saved != null){

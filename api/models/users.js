@@ -6,11 +6,11 @@ if (usersTable == null)
 
 class User {
 
-    async save() {
+    async save(matid) {
         let matchingUserMat = -1;
 
         if(this.mat == undefined){
-            this.mat = uniqid();
+            this.mat = matid;
         }
         else{
             matchingUserMat = usersTable.findIndex(e => e.mat === this.mat)
